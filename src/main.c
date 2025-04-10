@@ -34,57 +34,61 @@ int main(int argc, char *argv[])
   }
 
   char *value = argv[1]; // the first string that is piped to the program
+
+  // Calculate the length of the string
+  size_t stringLength = strlen(value);
+
   // Function to get the actual value at the current index
   char actualValue()
   {
-    if (valueIndex >= strlen(value))
+    if (valueIndex >= stringLength)
     {
       return '\0';
     }
     return value[valueIndex];
   };
 
-  // Calculate the length of the string
-  size_t stringLength = strlen(value);
   while (valueIndex < stringLength)
   {
     switch (estado)
     {
     case q0:
-      if (actualValue() == '0')
+      switch (actualValue())
       {
+      case '0':
         funcionGeneralizadaParaUsarEnTodosLosEstadosDeEsteAutomataParaSimplificarElProcesoDeEscrituraDelCodigo(NULL, q2, value);
-      }
-      else if (actualValue() == '1')
-      {
+        break;
+      case '1':
         funcionGeneralizadaParaUsarEnTodosLosEstadosDeEsteAutomataParaSimplificarElProcesoDeEscrituraDelCodigo(NULL, q1, value);
+        break;
       }
       break;
     case q1:
-      if (actualValue() == '0')
+      switch (actualValue())
       {
+      case '0':
         funcionGeneralizadaParaUsarEnTodosLosEstadosDeEsteAutomataParaSimplificarElProcesoDeEscrituraDelCodigo(NULL, q2, value);
-      }
-      else if (actualValue() == '1')
-      {
+        break;
+      case '1':
         funcionGeneralizadaParaUsarEnTodosLosEstadosDeEsteAutomataParaSimplificarElProcesoDeEscrituraDelCodigo(NULL, q3, value);
+        break;
       }
       break;
     case q2:
-      if (actualValue() == '1')
+      switch (actualValue())
       {
+      case '1':
         funcionGeneralizadaParaUsarEnTodosLosEstadosDeEsteAutomataParaSimplificarElProcesoDeEscrituraDelCodigo(NULL, q1, value);
-      }
-      else if (actualValue() == '0')
-      {
+        break;
+      case '0':
         funcionGeneralizadaParaUsarEnTodosLosEstadosDeEsteAutomataParaSimplificarElProcesoDeEscrituraDelCodigo(NULL, q3, value);
+        break;
       }
       break;
     case q3:
       // does nothing
       valueIndex = stringLength + 1;
       break;
-
     default:
       break;
     }
